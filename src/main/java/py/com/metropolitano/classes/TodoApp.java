@@ -19,24 +19,33 @@ import utils.Utilities;
 public class TodoApp {
 
     private int currentOption = -1;
+    private Scanner scanner;
     
     public TodoApp() {
         // Para mostrar los acentos correctamente
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        
+        this.scanner = new Scanner(System.in);
     }
     
     public void run() {
-        this.currentOption = -1;
-        
-        while( this.currentOption != TodoOptions.EXIT) {
+        while( this.currentOption != TodoOptions.MAIN_EXIT) {
             // Mostrar el menú de opciones
             this.printMenu();
             
             // Leer una opción de menú válida
-            this.readValidOption();
+            this.readValidOption(1, 5);
             
-            System.out.println("Opción válida: " + this.currentOption);
+            // Mostramos la opción correspondiente
+            this.selectMenuOption();
         }
+        
+        exit();
+    }
+    
+    // Liberamos los recursos
+    private void exit() {
+        this.scanner.close();
     }
     
     public void printMenu() {
@@ -48,28 +57,40 @@ public class TodoApp {
         System.out.println("5. Salir");
     }
     
-    public void readValidOption() {
-        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
-        
+    public void readValidOption(int minValue, int maxValue) {
         int option = -1;
         boolean isValid = false;
         
         while(!isValid) {
             try {
                 System.out.print("Elige una opción: ");
-                option = scanner.nextInt();
-                scanner.nextLine();
+                option = this.scanner.nextInt();
+                this.scanner.nextLine();
                 
-                isValid = option >=1 && option <= 5;
+                isValid = option >= minValue && option <= maxValue;
                 if(!isValid) {
                     System.out.println("Por favor, ingresa una opción de menú válida");
                 }
             }catch(InputMismatchException e) {
                 System.out.println("Por favor, ingresa una opción de menú válida");
-                scanner.nextLine();
+                this.scanner.nextLine();
             }
         }
         
         this.currentOption = option;
     }
+    
+    public void selectMenuOption() {
+        switch(this.currentOption) {
+            case TodoOptions.MAIN_CREATE_NEW_TASK:
+                addTask();
+                break;
+        }
+    }
+    
+    // 1: Permite agregar una nueva tarea
+    public void addTask() {
+        Todo todo = new Todo(this.scanner);
+        todo.readTask();
+    };
 }

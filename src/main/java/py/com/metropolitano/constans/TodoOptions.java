@@ -9,9 +9,10 @@ package py.com.metropolitano.constans;
  * @author frank
  */
 public class TodoOptions {
-    public static final int CREATE_NEW_TASK = 1;
-    public static final int MARK_TASK_COMPLETED = 2;
-    public static final int DELETE_TASK = 3;
-    public static final int SHOW_PENDING_TASKS = 4;
-    public static final int EXIT = 5;
+    // Opciones del menú principal
+    public static final int MAIN_CREATE_NEW_TASK = 1;
+    public static final int MAIN_MARK_TASK_COMPLETED = 2;
+    public static final int MAIN_DELETE_TASK = 3;
+    public static final int MAIN_SHOW_PENDING_TASKS = 4;
+    public static final int MAIN_EXIT = 5;
 }
