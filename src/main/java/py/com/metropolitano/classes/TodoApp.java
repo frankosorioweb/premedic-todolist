@@ -4,16 +4,43 @@
  */
 package py.com.metropolitano.classes;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import py.com.metropolitano.constans.TodoOptions;
+import utils.Utilities;
 
 /**
  *
  * @author frank
  */
 public class TodoApp {
+
+    private int currentOption = -1;
+    
+    public TodoApp() {
+        // Para mostrar los acentos correctamente
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+    }
+    
+    public void run() {
+        this.currentOption = -1;
+        
+        while( this.currentOption != TodoOptions.EXIT) {
+            // Mostrar el menú de opciones
+            this.printMenu();
+            
+            // Leer una opción de menú válida
+            this.readValidOption();
+            
+            System.out.println("Opción válida: " + this.currentOption);
+        }
+    }
+    
     public void printMenu() {
-        System.out.println("---- *** ---- TODO APP | Menú de opciones ---- *** ----");
+        System.out.println("---- *** ---- TODO APP | Menú principal ---- *** ----");
         System.out.println("1. Crear nueva tarea");
         System.out.println("2. Marcar tarea como completada");
         System.out.println("3. Eliminar tarea");
@@ -21,19 +48,19 @@ public class TodoApp {
         System.out.println("5. Salir");
     }
     
-    public int readValidOption() {
-        Scanner scanner = new Scanner(System.in);
+    public void readValidOption() {
+        Scanner scanner = new Scanner(System.in, "ISO-8859-1");
         
-        int number = -1;
+        int option = -1;
         boolean isValid = false;
         
         while(!isValid) {
             try {
                 System.out.print("Elige una opción: ");
-                number = scanner.nextInt();
+                option = scanner.nextInt();
                 scanner.nextLine();
                 
-                isValid = number >=1 && number <= 5;
+                isValid = option >=1 && option <= 5;
                 if(!isValid) {
                     System.out.println("Por favor, ingresa una opción de menú válida");
                 }
@@ -43,6 +70,6 @@ public class TodoApp {
             }
         }
         
-        return number;
+        this.currentOption = option;
     }
 }

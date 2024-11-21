@@ -15,14 +15,10 @@ import py.com.metropolitano.classes.TodoApp;
 public class Main {
 
     public static void main(String[] args) {
+        // Ajustes iniciales
         TodoApp todoApp = new TodoApp();
         
-        int option = -1;
-        
-        while( option != TodoOptions.EXIT) {
-            todoApp.printMenu();
-            
-            option = todoApp.readValidOption();
-        }
+        // Lanzamos la aplicación
+        todoApp.run();
     }
 }
