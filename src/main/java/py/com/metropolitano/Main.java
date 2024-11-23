@@ -4,8 +4,6 @@
 
 package py.com.metropolitano;
 
-import java.util.Scanner;
-import py.com.metropolitano.constans.TodoAppOptions;
 import utils.TodoApp;
 
 /**

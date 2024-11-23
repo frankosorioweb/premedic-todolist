@@ -4,14 +4,15 @@
  */
 package utils;
 
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import models.TodoItem;
 import py.com.metropolitano.classes.Todo;
 import py.com.metropolitano.constans.TodoAppOptions;
-import utils.Utilities;
 
 /**
  *
@@ -20,12 +21,15 @@ import utils.Utilities;
 public class TodoApp {
 
     private int currentOption = -1;
-    private Scanner scanner;
+    private final Scanner scanner;
+    
+    private final List<TodoItem> todos;
     
     public TodoApp() {
         // Para mostrar los acentos correctamente
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
         
+        this.todos = new ArrayList<>();
         this.scanner = new Scanner(System.in);
     }
     
@@ -113,10 +117,11 @@ public class TodoApp {
     }
     
     private void addTask() {
-        Todo todo = new Todo(this.scanner);
-        todo.readTask();
+        TodoItem data = new Todo(this.scanner).readTask();        
         
         // Agregar a la colección
+        this.todos.add(data);
         
+        System.out.println("---- **** ---- TAREA AGREGADA ---- **** ---- ");
     }
 }

@@ -17,8 +17,10 @@ public class TodoAppOptions {
     public static final int MAIN_EXIT = 5;
     
     // Opciones de fechas
-    public static String DATE_FORMAT = "dd-MM-yyyy";
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
     
     // Mensajes
-    public static String INPUT_ERROR_MESSAGE = "Por favor, ingrese una opción de menú válida.";
+    public static final String INPUT_ERROR_MESSAGE = "Por favor, ingrese una opción de menú válida.";
+    
+    public static enum TASK_PRIORITY { ALTA, MEDIA, BAJA };
 }

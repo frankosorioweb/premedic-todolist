@@ -4,8 +4,9 @@
  */
 package models;
 
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.Data;
+import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
 
 /**
  *
@@ -13,8 +14,8 @@ import lombok.Data;
  */
 
 @Data
-public class TodoData {
+public class TodoItem {
     private String description;
-    private Date dueDate;
-    private String priority;
+    private LocalDate dueDate;
+    private TASK_PRIORITY priority;
 }
