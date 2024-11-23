@@ -8,11 +8,17 @@ package py.com.metropolitano.constans;
  *
  * @author frank
  */
-public class TodoOptions {
+public class TodoAppOptions {
     // Opciones del menú principal
     public static final int MAIN_CREATE_NEW_TASK = 1;
     public static final int MAIN_MARK_TASK_COMPLETED = 2;
     public static final int MAIN_DELETE_TASK = 3;
     public static final int MAIN_SHOW_PENDING_TASKS = 4;
     public static final int MAIN_EXIT = 5;
+    
+    // Opciones de fechas
+    public static String DATE_FORMAT = "dd-MM-yyyy";
+    
+    // Mensajes
+    public static String INPUT_ERROR_MESSAGE = "Por favor, ingrese una opción de menú válida.";
 }

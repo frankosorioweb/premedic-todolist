@@ -4,34 +4,65 @@
  */
 package py.com.metropolitano.classes;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
+import models.TodoData;
+import utils.Utilities;
 
 /**
  *
  * @author frank
  */
-public class Todo {
+public class Todo extends TodoData{
     private Scanner scanner;
-    
-    private String description;
-    private Date dueDate;
-    private String priority;
 
     public Todo(Scanner scanner) {
         this.scanner = scanner;
     }
     
     // Solicita todas las propiedades al usuario
-    public void readTask() {
+    public TodoData readTask() {
         System.out.println();
         System.out.println("---- **** ---- TO-DO APP | AGREGAR TAREA ---- **** ---- ");
         
-        System.out.println("Ingrese la descripción:");
-        String description = this.scanner.nextLine();
+        // 1: Descripción
+        this.readValidDescription();
         
-        System.out.println("Descripción: " + description);
+        // 2. Fecha de vencimiento 
+        this.readValidDueDate();
         
-        this.scanner.nextLine();
+        return this;
+    }
+    
+    private void readValidDescription() {
+        String validDescription = "";
+        
+        do{
+            System.out.println("Ingrese la Descripción:");
+            validDescription = this.scanner.nextLine().trim();
+            
+            if(validDescription == "") {
+                System.out.println("¡Ingrese una descripción válida!.");
+            }
+            
+        } while(validDescription.trim() == "");
+        
+        //this.description = validDescription;
+    }
+    
+    private void readValidDueDate() {
+        Boolean isValid;
+        
+        do {
+            System.out.println("Ingrese la Fecha de Vencimiento (dd-MM-yyyy):");
+            String dateStr = this.scanner.nextLine();
+
+            LocalDate dueDate = Utilities.parseDate(dateStr);
+
+            isValid = dueDate != null;
+            
+            System.out.println(" " + isValid);
+        } while(!isValid);
     }
 }

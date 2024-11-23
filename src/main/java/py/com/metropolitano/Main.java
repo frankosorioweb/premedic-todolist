@@ -5,8 +5,8 @@
 package py.com.metropolitano;
 
 import java.util.Scanner;
-import py.com.metropolitano.constans.TodoOptions;
-import py.com.metropolitano.classes.TodoApp;
+import py.com.metropolitano.constans.TodoAppOptions;
+import utils.TodoApp;
 
 /**
  *
@@ -20,5 +20,8 @@ public class Main {
         
         // Lanzamos la aplicación
         todoApp.run();
+        
+        // Cerramos la aplicación
+        todoApp.exit();
     }
 }

@@ -10,4 +10,14 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>py.com.metropolitano.Todolist</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <!-- Dependencia de Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version> <!-- Cambia a la versión más reciente -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

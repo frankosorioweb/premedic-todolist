@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package py.com.metropolitano.classes;
+package utils;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import py.com.metropolitano.constans.TodoOptions;
+import py.com.metropolitano.classes.Todo;
+import py.com.metropolitano.constans.TodoAppOptions;
 import utils.Utilities;
 
 /**
@@ -28,8 +29,9 @@ public class TodoApp {
         this.scanner = new Scanner(System.in);
     }
     
+    // Lanza la aplicación
     public void run() {
-        while( this.currentOption != TodoOptions.MAIN_EXIT) {
+        while( this.currentOption != TodoAppOptions.MAIN_EXIT) {
             // Mostrar el menú de opciones
             this.printMenu();
             
@@ -39,29 +41,32 @@ public class TodoApp {
             // Mostramos la opción correspondiente
             this.selectMenuOption();
         }
-        
-        exit();
     }
     
-    // Liberamos los recursos
-    private void exit() {
+    // Liberamos los recursos al cerrar nuestra App
+    public void exit() {
+        System.out.println("");
+        System.out.println("---- **** ---- CERRANDO APLICACIÓN ---- **** ---- ");
         this.scanner.close();
     }
     
+    // Muestra todas las opciones del menú principal
     public void printMenu() {
+        System.out.println();
         System.out.println("---- *** ---- TODO APP | Menú principal ---- *** ----");
-        System.out.println("1. Crear nueva tarea");
-        System.out.println("2. Marcar tarea como completada");
-        System.out.println("3. Eliminar tarea");
-        System.out.println("4. Mostrar tareas pendientes");
-        System.out.println("5. Salir");
+        System.out.println("1. Crear nueva tarea.");
+        System.out.println("2. Marcar tarea como completada.");
+        System.out.println("3. Eliminar tarea.");
+        System.out.println("4. Mostrar tareas pendientes.");
+        System.out.println("5. Salir.");
     }
     
+    // Permite leer una opción del usuario y valida el rango del valor
     public void readValidOption(int minValue, int maxValue) {
         int option = -1;
-        boolean isValid = false;
+        Boolean isValid;
         
-        while(!isValid) {
+        do {
             try {
                 System.out.print("Elige una opción: ");
                 option = this.scanner.nextInt();
@@ -69,28 +74,49 @@ public class TodoApp {
                 
                 isValid = option >= minValue && option <= maxValue;
                 if(!isValid) {
-                    System.out.println("Por favor, ingresa una opción de menú válida");
+                    System.out.println(TodoAppOptions.INPUT_ERROR_MESSAGE);
                 }
             }catch(InputMismatchException e) {
-                System.out.println("Por favor, ingresa una opción de menú válida");
+                isValid = false;
+                
+                System.out.println(TodoAppOptions.INPUT_ERROR_MESSAGE);
                 this.scanner.nextLine();
             }
-        }
+        }while(!isValid);
         
         this.currentOption = option;
     }
     
+    // Permite navegar por el sistema, a partir de la opción ingresada
     public void selectMenuOption() {
         switch(this.currentOption) {
-            case TodoOptions.MAIN_CREATE_NEW_TASK:
+            // 1: Crear nueva tarea.
+            case TodoAppOptions.MAIN_CREATE_NEW_TASK:
                 addTask();
+                break;
+                
+            // 2: Marcar tarea como completada.
+            case TodoAppOptions.MAIN_MARK_TASK_COMPLETED:
+                //todoFunctions.readTask();
+                break;
+                
+            // 3: Eliminar tarea.
+            case TodoAppOptions.MAIN_DELETE_TASK:
+                //todoFunctions.readTask();
+                break;
+                
+            // 4: Mostrar tareas pendientes.
+            case TodoAppOptions.MAIN_SHOW_PENDING_TASKS:
+                //todoFunctions.readTask();
                 break;
         }
     }
     
-    // 1: Permite agregar una nueva tarea
-    public void addTask() {
+    private void addTask() {
         Todo todo = new Todo(this.scanner);
         todo.readTask();
-    };
+        
+        // Agregar a la colección
+        
+    }
 }
