@@ -1,4 +1,4 @@
-package utils;
+package py.com.premedic.utils;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -8,8 +8,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import models.TodoItem;
-import py.com.metropolitano.constans.TodoAppOptions;
+import py.com.premedic.models.TodoItem;
+import py.com.premedic.constans.TodoAppOptions;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

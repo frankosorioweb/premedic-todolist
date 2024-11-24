@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package utils;
+package py.com.premedic.utils;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import models.TodoItem;
-import py.com.metropolitano.classes.Todo;
-import py.com.metropolitano.constans.TodoAppOptions;
-import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
-import static utils.Utilities.SHOW_MSG;
+import py.com.premedic.models.TodoItem;
+import py.com.premedic.classes.Todo;
+import py.com.premedic.constans.TodoAppOptions;
+import py.com.premedic.constans.TodoAppOptions.TASK_PRIORITY;
+import static py.com.premedic.utils.Utilities.SHOW_MSG;
 
 /**
  *

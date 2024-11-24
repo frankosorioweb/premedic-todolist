@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package py.com.metropolitano;
+package py.com.premedic;
 
-import utils.TodoApp;
+import py.com.premedic.utils.TodoApp;
 
 /**
  *

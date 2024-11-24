@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package models;
+package py.com.premedic.models;
 
 import java.time.LocalDate;
 import lombok.Data;
 import lombok.ToString;
-import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
-import utils.Utilities;
-import static utils.Utilities.SHOW_MSG;
+import py.com.premedic.constans.TodoAppOptions.TASK_PRIORITY;
+import py.com.premedic.utils.Utilities;
+import static py.com.premedic.utils.Utilities.SHOW_MSG;
 
 /**
  *

@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package py.com.metropolitano.classes;
+package py.com.premedic.classes;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-import models.TodoItem;
-import py.com.metropolitano.constans.TodoAppOptions;
-import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
-import utils.Utilities;
-import static utils.Utilities.SHOW_MSG;
+import py.com.premedic.models.TodoItem;
+import py.com.premedic.constans.TodoAppOptions;
+import py.com.premedic.constans.TodoAppOptions.TASK_PRIORITY;
+import py.com.premedic.utils.Utilities;
+import static py.com.premedic.utils.Utilities.SHOW_MSG;
 
 /**
  *
