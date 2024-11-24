@@ -9,10 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import models.TodoItem;
 import py.com.metropolitano.classes.Todo;
 import py.com.metropolitano.constans.TodoAppOptions;
+import static utils.Utilities.SHOW_MSG;
 
 /**
  *
@@ -40,7 +43,7 @@ public class TodoApp {
             this.printMenu();
             
             // Leer una opción de menú válida
-            this.readValidOption(1, 5);
+            this.readValidOption(1, 5, "Elige una opción: ");
             
             // Mostramos la opción correspondiente
             this.selectMenuOption();
@@ -49,41 +52,42 @@ public class TodoApp {
     
     // Liberamos los recursos al cerrar nuestra App
     public void exit() {
-        System.out.println("");
-        System.out.println("---- **** ---- CERRANDO APLICACIÓN ---- **** ---- ");
+        SHOW_MSG("");
+        SHOW_MSG("CERRANDO APLICACIÓN (CONTRATENME XD)", true);
+        
         this.scanner.close();
     }
     
     // Muestra todas las opciones del menú principal
     public void printMenu() {
-        System.out.println();
-        System.out.println("---- *** ---- TODO APP | Menú principal ---- *** ----");
-        System.out.println("1. Crear nueva tarea.");
-        System.out.println("2. Marcar tarea como completada.");
-        System.out.println("3. Eliminar tarea.");
-        System.out.println("4. Mostrar tareas pendientes.");
-        System.out.println("5. Salir.");
+        SHOW_MSG("");
+        SHOW_MSG("TODO APP | Menú principal", true);
+        SHOW_MSG("1. Crear nueva tarea.");
+        SHOW_MSG("2. Marcar tarea como completada.");
+        SHOW_MSG("3. Eliminar tarea.");
+        SHOW_MSG("4. Mostrar tareas pendientes.");
+        SHOW_MSG("5. Salir.");
     }
     
     // Permite leer una opción del usuario y valida el rango del valor
-    public void readValidOption(int minValue, int maxValue) {
+    public void readValidOption(int minValue, int maxValue, String message) {
         int option = -1;
         Boolean isValid;
         
         do {
             try {
-                System.out.print("Elige una opción: ");
+                SHOW_MSG(message);
                 option = this.scanner.nextInt();
                 this.scanner.nextLine();
                 
                 isValid = option >= minValue && option <= maxValue;
                 if(!isValid) {
-                    System.out.println(TodoAppOptions.INPUT_ERROR_MESSAGE);
+                    SHOW_MSG(TodoAppOptions.INPUT_ERROR_MESSAGE);
                 }
             }catch(InputMismatchException e) {
                 isValid = false;
                 
-                System.out.println(TodoAppOptions.INPUT_ERROR_MESSAGE);
+                SHOW_MSG(TodoAppOptions.INPUT_ERROR_MESSAGE);
                 this.scanner.nextLine();
             }
         }while(!isValid);
@@ -101,17 +105,17 @@ public class TodoApp {
                 
             // 2: Marcar tarea como completada.
             case TodoAppOptions.MAIN_MARK_TASK_COMPLETED:
-                //todoFunctions.readTask();
+                this.markTaskCompleted();
                 break;
                 
             // 3: Eliminar tarea.
             case TodoAppOptions.MAIN_DELETE_TASK:
-                //todoFunctions.readTask();
+                this.deleteTask();
                 break;
                 
             // 4: Mostrar tareas pendientes.
             case TodoAppOptions.MAIN_SHOW_PENDING_TASKS:
-                //todoFunctions.readTask();
+                this.showPendingTasks();
                 break;
         }
     }
@@ -122,6 +126,78 @@ public class TodoApp {
         // Agregar a la colección
         this.todos.add(data);
         
-        System.out.println("---- **** ---- TAREA AGREGADA ---- **** ---- ");
+        SHOW_MSG("TAREA AGREGADA", true);
+    }
+    
+    private List<TodoItem> getPendingTasks() {
+        List<TodoItem> pendingTodos = this.todos.stream().filter(item -> !item.isCompleted()).collect(Collectors.toList());
+        
+        return pendingTodos;
+    }
+    
+    private void showPendingTasks() {
+        List<TodoItem> pendingTodos = this.getPendingTasks();
+        
+        if(pendingTodos.isEmpty()) {
+            SHOW_MSG("NO HAY TAREAS PENDIENTES", true);
+        } else {
+            SHOW_MSG("TAREAS PENDIENTES", true);
+            
+            int index = 1;
+            for(TodoItem todo : pendingTodos) {
+                SHOW_MSG(index + ". " + todo.toString());
+                
+                index++;
+            }
+        }
+    }
+    
+    private void showAllTasks() {
+        if(this.todos.isEmpty()) {
+            SHOW_MSG("NO HAY TAREAS", true);
+        } else {
+            SHOW_MSG("TODAS LAS TAREAS", true);
+            
+            int index = 1;
+            for(TodoItem todo : this.todos) {
+                SHOW_MSG(index + ". " + todo.toString());
+                
+                index++;
+            }
+        }
+    }
+    
+    private void markTaskCompleted() {
+        this.showPendingTasks();
+        
+        List<TodoItem> pendingTodos = this.getPendingTasks();
+        
+        if(!pendingTodos.isEmpty()) {
+            this.readValidOption(1, pendingTodos.size(), "Ingrese una opción (1 al " + pendingTodos.size() + "): ");
+            
+            String selectedTodoId = pendingTodos.get(this.currentOption - 1).getId();
+            Optional<TodoItem> selectedTodo = this.todos.stream().filter(item -> item.getId().equals(selectedTodoId)).findFirst();
+            
+            if(!selectedTodo.isEmpty()) {
+                selectedTodo.get().setCompleted(true);
+                SHOW_MSG("TAREA COMPLETADA", true);
+            }
+        }
+    }
+    
+    private void deleteTask() {
+        this.showAllTasks();
+        
+        if(!this.todos.isEmpty()) {
+            this.readValidOption(1, this.todos.size(), "Ingrese una opción (1 al " + this.todos.size() + "): ");
+            
+            String selectedTodoId = this.todos.get(this.currentOption - 1).getId();
+            Optional<TodoItem> selectedTodo = this.todos.stream().filter(item -> item.getId().equals(selectedTodoId)).findFirst();
+            
+            if(!selectedTodo.isEmpty()) {
+                this.todos.remove(selectedTodo.get());
+                SHOW_MSG("TAREA ELIMINADA", true);
+            }
+        }
     }
 }

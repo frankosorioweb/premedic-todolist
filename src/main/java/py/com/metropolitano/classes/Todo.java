@@ -10,6 +10,7 @@ import models.TodoItem;
 import py.com.metropolitano.constans.TodoAppOptions;
 import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
 import utils.Utilities;
+import static utils.Utilities.SHOW_MSG;
 
 /**
  *
@@ -24,8 +25,8 @@ public class Todo extends TodoItem{
     
     // Solicita todas las propiedades al usuario
     public TodoItem readTask() {
-        System.out.println();
-        System.out.println("---- **** ---- TO-DO APP | AGREGAR TAREA ---- **** ---- ");
+        SHOW_MSG("");
+        SHOW_MSG("TO-DO APP | AGREGAR TAREA", true);
         
         // 1: Descripción
         this.readValidDescription();
@@ -43,16 +44,18 @@ public class Todo extends TodoItem{
         String validDescription = "";
         
         do{
-            System.out.println("Ingrese la Descripción:");
+            SHOW_MSG("Ingrese la Descripción:");
             validDescription = this.scanner.nextLine().trim();
             
             if(validDescription == "") {
-                System.out.println("¡Ingrese una descripción válida!.");
+                SHOW_MSG("¡Ingrese una descripción válida!.");
             }
             
         } while(validDescription.trim() == "");
         
         this.setDescription(validDescription);
+        
+        
     }
     
     private void readValidDueDate() {
@@ -60,15 +63,16 @@ public class Todo extends TodoItem{
         LocalDate validDueDate = null;
         
         do {
-            System.out.println("Ingrese la Fecha de Vencimiento (dd-MM-yyyy):");
+            SHOW_MSG("Ingrese la Fecha de Vencimiento (dd-MM-yyyy):");
+            
             String dateStr = this.scanner.nextLine();
 
-            validDueDate = Utilities.parseDate(dateStr);
+            validDueDate = Utilities.PARSE_DATE(dateStr);
 
             isValid = validDueDate != null;
             
             if(!isValid) {
-                System.out.println("¡Ingrese una fecha de vencimiento válida!");
+                SHOW_MSG("¡Ingrese una fecha de vencimiento válida!");
             }
         } while(!isValid);
         
@@ -80,14 +84,13 @@ public class Todo extends TodoItem{
         TASK_PRIORITY priority = null;
         
         do {
-            System.out.println("Ingrese la Prioridad (alta, media, baja)");
+            SHOW_MSG("Ingrese la Prioridad (alta, media, baja)");
             validPriority = this.scanner.nextLine();
             
             try {
                 priority = TASK_PRIORITY.valueOf(validPriority.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println(validPriority);
-                System.out.println("¡Ingrese una prioridad válida!");
+                SHOW_MSG("¡Ingrese una prioridad válida!");
                 
                 validPriority = "";
             }
@@ -95,6 +98,6 @@ public class Todo extends TodoItem{
         
         this.setPriority(priority);
         
-        System.out.println(this.getPriority().toString());
+        SHOW_MSG(this.getPriority().toString());
     }
 }

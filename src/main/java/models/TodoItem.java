@@ -6,7 +6,10 @@ package models;
 
 import java.time.LocalDate;
 import lombok.Data;
+import lombok.ToString;
 import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
+import utils.Utilities;
+import static utils.Utilities.SHOW_MSG;
 
 /**
  *
@@ -15,7 +18,21 @@ import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
 
 @Data
 public class TodoItem {
+    private String id;
     private String description;
     private LocalDate dueDate;
     private TASK_PRIORITY priority;
+    private boolean isCompleted = false;
+
+    public TodoItem() {
+        this.id = Utilities.GENERATE_UUID();
+    }
+    
+    @Override
+    public String toString() {
+        String template = "Descripción: \"%s\" | Fecha de Vencimiento: \"%s\" | Prioridad \"%s\"";
+        String todoDetails = String.format(template, this.description, Utilities.FORMAT_DATE_LONG(dueDate), this.priority);
+        
+        return todoDetails;
+    }
 }

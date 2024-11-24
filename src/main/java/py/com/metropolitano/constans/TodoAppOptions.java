@@ -18,6 +18,7 @@ public class TodoAppOptions {
     
     // Opciones de fechas
     public static final String DATE_FORMAT = "dd-MM-yyyy";
+    public static final String DATE_FORMAT_LONG = "d 'de' MMMM 'de' yyyy";
     
     // Mensajes
     public static final String INPUT_ERROR_MESSAGE = "Por favor, ingrese una opción de menú válida.";
