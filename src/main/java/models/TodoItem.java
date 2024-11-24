@@ -28,6 +28,14 @@ public class TodoItem {
         this.id = Utilities.GENERATE_UUID();
     }
     
+    public TodoItem(String description, LocalDate dueDate, TASK_PRIORITY priority) {
+        this();
+        
+        this.setDescription(description);
+        this.setDueDate(dueDate);
+        this.setPriority(priority);
+    }
+    
     @Override
     public String toString() {
         String template = "Descripción: \"%s\" | Fecha de Vencimiento: \"%s\" | Prioridad \"%s\"";

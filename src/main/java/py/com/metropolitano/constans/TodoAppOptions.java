@@ -23,5 +23,9 @@ public class TodoAppOptions {
     // Mensajes
     public static final String INPUT_ERROR_MESSAGE = "Por favor, ingrese una opción de menú válida.";
     
-    public static enum TASK_PRIORITY { ALTA, MEDIA, BAJA };
+    public static enum TASK_PRIORITY {
+        ALTA,
+        MEDIA,
+        BAJA
+    };
 }

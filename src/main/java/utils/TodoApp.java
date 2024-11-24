@@ -6,6 +6,7 @@ package utils;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import models.TodoItem;
 import py.com.metropolitano.classes.Todo;
 import py.com.metropolitano.constans.TodoAppOptions;
+import py.com.metropolitano.constans.TodoAppOptions.TASK_PRIORITY;
 import static utils.Utilities.SHOW_MSG;
 
 /**
@@ -34,6 +36,15 @@ public class TodoApp {
         
         this.todos = new ArrayList<>();
         this.scanner = new Scanner(System.in);
+        
+        this.loadTestTasks();
+    }
+    
+    private void loadTestTasks() {
+        todos.add(new TodoItem("Crear redes sociales", LocalDate.of(2024, 12, 1), TASK_PRIORITY.MEDIA));
+        todos.add(new TodoItem("Instalar HTTPS en el server", LocalDate.of(2024, 12, 2), TASK_PRIORITY.BAJA));
+        todos.add(new TodoItem("Registrar dominio", LocalDate.of(2024, 12, 1), TASK_PRIORITY.ALTA));
+        todos.add(new TodoItem("Lanzar campaña publicitaria", LocalDate.of(2024, 12, 1), TASK_PRIORITY.ALTA));
     }
     
     // Lanza la aplicación
@@ -137,14 +148,15 @@ public class TodoApp {
     
     private void showPendingTasks() {
         List<TodoItem> pendingTodos = this.getPendingTasks();
+        List<TodoItem> sortedItems = Utilities.SORT_TODOS(pendingTodos);
         
-        if(pendingTodos.isEmpty()) {
+        if(sortedItems.isEmpty()) {
             SHOW_MSG("NO HAY TAREAS PENDIENTES", true);
         } else {
-            SHOW_MSG("TAREAS PENDIENTES", true);
+            SHOW_MSG("TAREAS PENDIENTES | Vencimiento ↓ Prioridad ↑", true);
             
             int index = 1;
-            for(TodoItem todo : pendingTodos) {
+            for(TodoItem todo : sortedItems) {
                 SHOW_MSG(index + ". " + todo.toString());
                 
                 index++;
@@ -152,11 +164,11 @@ public class TodoApp {
         }
     }
     
-    private void showAllTasks() {
+    private void showAllTasks(String message) {
         if(this.todos.isEmpty()) {
             SHOW_MSG("NO HAY TAREAS", true);
         } else {
-            SHOW_MSG("TODAS LAS TAREAS", true);
+            SHOW_MSG(message, true);
             
             int index = 1;
             for(TodoItem todo : this.todos) {
@@ -186,7 +198,7 @@ public class TodoApp {
     }
     
     private void deleteTask() {
-        this.showAllTasks();
+        this.showAllTasks("ELIMINAR TAREA");
         
         if(!this.todos.isEmpty()) {
             this.readValidOption(1, this.todos.size(), "Ingrese una opción (1 al " + this.todos.size() + "): ");

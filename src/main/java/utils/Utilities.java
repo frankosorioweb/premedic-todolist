@@ -3,8 +3,12 @@ package utils;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import models.TodoItem;
 import py.com.metropolitano.constans.TodoAppOptions;
 
 /*
@@ -48,5 +52,17 @@ public class Utilities {
     
     public static String GENERATE_UUID() {
         return UUID.randomUUID().toString();
+    }
+    
+    // Ordena por fecha de vencimiento y prioridad
+    public static List<TodoItem> SORT_TODOS(List<TodoItem> todos) {
+        List<TodoItem> result = new ArrayList<>(todos);
+        result.sort(Comparator
+            //.comparing(TodoItem::getDueDate, Comparator.reverseOrder()) // Descendente
+            .comparing(TodoItem::getDueDate) // Ascendente
+            .thenComparing(TodoItem::getPriority) // ALTA > MEDIA > BAJA
+        );
+        
+        return result;
     }
 }
